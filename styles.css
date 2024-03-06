@@ -17,7 +17,7 @@
 }
 
 body {
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,10 +39,9 @@ main {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
-  gap: 50px;
+  gap: 40px;
   background-color: var(--white);
-  padding: 30px;
+  padding: 25px;
   border-radius: 20px;
 
   width: 45%;
@@ -83,26 +82,28 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 3px;
+  cursor: pointer;
 }
 
-.tip-option button:hover{
-    background-color: var(--strong-cyan);
+.tip-option button:hover {
+  background-color: var(--strong-cyan);
 }
 
-.tip-option button:active{
-    background-color: var(--bg-color);
+.tip-option button:active {
+  background-color: var(--bg-color);
 }
 
-.custom-tip-input{
+.custom-tip-input {
   width: 100%;
   height: 100%;
   border-radius: 3px;
-  padding:5px 10px;
+  padding: 5px 10px;
   background-image: none;
+  cursor: pointer;
 }
 
-.custom-tip-input::placeholder{
-    text-align: center;
+.custom-tip-input::placeholder {
+  text-align: center;
 }
 
 .input-panel label {
@@ -111,33 +112,35 @@ main {
 
 .input {
   background-color: var(--very-light-grayish-cyan);
-  width:100%;
+  width: 100%;
   border-radius: 4px;
   background-repeat: no-repeat;
   background-position: 12px 15px;
   padding: 12px 20px 12px 40px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.bill-inputbox{
-    background-image: url("./images/icon-dollar.svg"); 
+.bill-inputbox {
+  background-image: url("./images/icon-dollar.svg");
 }
 
-.people-number-inputbox{
-    background-image: url("./images/icon-person.svg");
+.people-number-inputbox {
+  background-image: url("./images/icon-person.svg");
 }
 
-.custom-tip-input{
-    background-color: var(--very-light-grayish-cyan);
+.custom-tip-input {
+  background-color: var(--very-light-grayish-cyan);
 }
 
 input::placeholder {
   color: var(--grayish-cyan);
 }
 
-input{
-    outline-color: var(--strong-cyan);
-    text-align: right;
-    color: var(--very-dark-cyan)
+input {
+  outline-color: var(--strong-cyan);
+  text-align: right;
+  color: var(--very-dark-cyan);
 }
 
 input::-webkit-outer-spin-button,
@@ -146,59 +149,144 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-label{
-    font-size: 14px;
+label {
+  font-size: 14px;
 }
 
-.result-panel{
-    background-color: var(--very-dark-cyan);
-    padding: 30px;
-    border-radius: 10px;
+.result-panel {
+  background-color: var(--very-dark-cyan);
+  padding: 30px;
+  border-radius: 10px;
 }
 
-.result{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.result {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.number{
-    display: flex;
-    color: var(--strong-cyan);
-    height: 35px;
-    align-items: center;
+.number {
+  display: flex;
+  color: var(--strong-cyan);
+  height: 35px;
+  align-items: center;
 }
 
-svg path{
-    fill: var(--strong-cyan);
+svg path {
+  fill: var(--strong-cyan);
 }
 
-.tip-amount-text, .total-amount-text{
-    color: var(--white);
-    font-size: 12px;
+.tip-amount-text,
+.total-amount-text {
+  color: var(--white);
+  font-size: 12px;
 }
 
-.tip-amount-text-p, .total-amount-text-p{
-    color:var(--grayish-cyan);
-    font-size:  10px;
+.tip-amount-text-p,
+.total-amount-text-p {
+  color: var(--grayish-cyan);
+  font-size: 10px;
 }
 
-.result-panel{
-    justify-content: space-between;
+.result-panel {
+  justify-content: space-between;
 }
 
-.tip-result{
-    margin-bottom: 20px;
+.tip-result {
+  margin-bottom: 20px;
 }
 
-.reset, .reset button{
-    width:100%;
-    height: 28px;
-    border-radius: 3px;
-    background-color: var(--bg-color);
-    color: var(--dark-grayish-cyan)
+.reset,
+.reset button {
+  cursor: pointer;
+  width: 100%;
+  height: 28px;
+  border-radius: 3px;
+  background-color: var(--bg-color);
+  color: var(--dark-grayish-cyan);
+}
+
+@media (max-width: 1200px) {
+  .dashboard {
+    width: 55%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .dashboard {
+    width: 70%;
+  }
+}
+
+@media (max-width: 750px) {
+  .dashboard {
+    width: 80%;
+  }
+
+  .tip-option, .reset {
+    height: 38px;
+  }
+
+}
+
+@media (max-width: 650px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .input-panel,
+  .result-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  body {
+    justify-content: flex-start;
+  }
+
+  .dashboard {
+    width: 95%;
+    gap: 25px;
+    margin-top: 0px;
+    padding: 20px;
+  }
+
+  header {
+    margin: 35px 0px;
+  }
+
+  .tip-buttons {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .tip-option, .reset {
+    height: 45px;
+  }
+  
+  .reset button{
+    height: 100%;
+    font-size: 16px;
+  }
+  
+  .tip-option button,
+  .custom-tip-input::placeholder,
+  .custom-tip-input,
+  .number,
+  .input::placeholder,
+  .input{
+    font-size: 18px;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .input {
+    height: 50px;
+    margin-top: 10px;
+  }
 }
