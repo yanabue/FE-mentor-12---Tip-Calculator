@@ -27,7 +27,9 @@
       <div class="dashboard" id="main-dash">
         <div class="input-panel" id="input-panel">
           <div class="bill-input main-input-div" id="bill-input">
-            <label class="bill-label">Bill</label>
+            <div class="label-error">
+              <label class="bill-label">Bill</label>
+            </div>
             <div class="inputbox-div">
               <input
                 type="number"
@@ -38,7 +40,9 @@
             </div>
           </div>
           <div class="tip-selection main-input-div" id="tip-selection">
-            <label class="tip-label">Select Tip %</label>
+            <div class="label-error">
+              <label class="tip-label">Select Tip %</label>
+            </div>
             <div class="tip-buttons">
               <div class="tip-option button">
                 <button class="five-percent">5%</button>
@@ -58,6 +62,7 @@
               <div class="tip-option custom">
                 <input
                   type="number"
+                  id="custom-inputbox"
                   class="custom-tip-input tip-option"
                   placeholder="Custom"
                 />
@@ -68,9 +73,12 @@
             class="people-number-input main-input-div"
             id="people-number-input"
           >
-            <label class="people-number-label">Number of People</label>
+            <div class="label-error">
+              <label class="people-number-label">Number of People</label>
+            </div>
             <div class="inputbox-div">
               <input
+                id="people-inputbox"
                 type="number"
                 class="people-number-inputbox input"
                 placeholder="0"
