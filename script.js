@@ -1,13 +1,4 @@
-// check if all input parts have input
-// if not - show error
-// if theres input check vif input valid
-// if not - show another error
-// once input is ok calculate the results according to input
-// allow reset button to reset program
-
-// all work on input
-// except validation that works on 'sumbitting' (enterkey listener)
-
+// Checks the bill + people input boxes if empty or not, returns true if empty
 function inputboxEmpty(parentID) {
   const parentDiv = document.getElementById(parentID);
   const inputbox = parentDiv.querySelector("input");
@@ -16,9 +7,11 @@ function inputboxEmpty(parentID) {
   }
 }
 
+// Makes sure only one tip value is selected at all times (last selected one) + returns the selected value
 let tipPercent;
 const tipButtonsDiv = document.querySelector(".tip-buttons");
 tipButtonsDiv.addEventListener("click", setupTipSelection.bind(null));
+
 function setupTipSelection(e) {
   if (e.target.tagName === "BUTTON") {
     if (e.target.classList.contains("selected")) {
@@ -38,31 +31,31 @@ function setupTipSelection(e) {
     e.target.addEventListener("input", () => {
       tipPercent = e.target.value;
     });
-    // (tipPercent)
     e.target.classList.add("selected");
   }
 
   return tipPercent;
 }
 
+// Gets the tip percent set by setupTipSelection() and checks if it has any value, returns true if empty
 function tipInputEmpty() {
   //   (tipPercent);
   if (typeof tipPercent === "undefined" || tipPercent === "") {
     // ("tip undefined");
     return true;
-  } else {
-    // ("tip defined");
   }
 }
 
+// Takes in any input value (from all 3 sections) and sterilizes the input before performing any tests and calculations
 function formatInputNumber(inputValue) {
   let formattedNumber;
 
   if (inputValue.includes("-") || inputValue.includes("+")) {
     formattedNumber = "-";
-    return formattedNumber;
+    return formattedNumber; // Dashes/Plus signs are invalid and will be defined as error
   } else {
     if (inputValue.includes("%")) {
+      // If user selected from tip buttons and not custom tip
       formattedNumber = inputValue.split("%").join("");
       formattedNumber = parseInt(inputValue);
     } else if (inputValue.includes(".")) {
@@ -71,10 +64,11 @@ function formatInputNumber(inputValue) {
       formattedNumber = parseInt(inputValue);
     }
   }
-
+  // Every kind of input will be turned into number value for next steps
   return formattedNumber;
 }
 
+// Sets up styling of DOM elements for invalid input
 function setInputBoxError(parentID, errorMessage) {
   const parentE = document.getElementById(parentID);
   const label = parentE.querySelector("label");
@@ -88,6 +82,7 @@ function setInputBoxError(parentID, errorMessage) {
   }
 }
 
+// Clears any error styling if current input is valid
 function clearError(parentID) {
   const parentE = document.getElementById(parentID);
   const label = parentE.querySelector("label");
@@ -100,45 +95,43 @@ function clearError(parentID) {
   }
 }
 
+// Root function to test if any field is empty
 function checkEmptyFields() {
-  let isValid = true;
+  let isEmpty = true;
 
   if (inputboxEmpty("bill-input")) {
     setInputBoxError("bill-input", "Cant be empty");
-    isValid = false;
+    isEmpty = false;
   } else {
     clearError("bill-input");
   }
 
   if (inputboxEmpty("people-number-input")) {
     setInputBoxError("people-number-input", "Cant be empty");
-    isValid = false;
+    isEmpty = false;
   } else {
     clearError("people-number-input");
   }
 
   if (tipInputEmpty()) {
     setInputBoxError("tip-selection", "Cant be empty");
-    isValid = false;
+    isEmpty = false;
   } else {
     clearError("tip-selection");
   }
 
-  return isValid;
+  return isEmpty;
 }
 
+// Checks if bill/people input values are invalid
 function inputInvalid(parentID) {
   const parentDiv = document.getElementById(parentID);
   const inputbox = parentDiv.querySelector("input");
   let formattedNumber = formatInputNumber(inputbox.value);
-  //   if (parentID === 'people-number-input'){
-
-  //       (Number.isInteger(formattedNumber))
-  //   }
   if (
-    inputbox.value <= 0 ||
+    inputbox.value <= 0 || // Cant be negative
     isNaN(formattedNumber) ||
-    (parentID === "people-number-input" &&
+    (parentID === "people-number-input" && // People number can't be a float
       !Number.isInteger(formattedNumber) &&
       Number.isFinite(formattedNumber))
   ) {
@@ -148,6 +141,7 @@ function inputInvalid(parentID) {
   }
 }
 
+// Checks if the formatted tipPercent is valid
 function tipInvalid() {
   let formattedTip = formatInputNumber(tipPercent);
   if (formattedTip <= 0 || isNaN(formattedTip)) {
@@ -155,6 +149,7 @@ function tipInvalid() {
   }
 }
 
+// Root function for validation of all field inputs
 function validateFields() {
   let isValid = true;
 
@@ -182,17 +177,15 @@ function validateFields() {
   return isValid;
 }
 
+// Event listener function for calling all functions (validation -> calculation)
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     checkEmptyFields();
     validateFields();
     if (checkEmptyFields() !== false && validateFields() !== false) {
       calculateResult();
-      (calculateResult());
       updateResultinDOM();
       reset();
-    } else {
-      ("error");
     }
   }
 });
@@ -200,8 +193,8 @@ window.addEventListener("keydown", (e) => {
 const billInputbox = document.getElementById("bill-inputbox");
 const peopleInputbox = document.getElementById("people-inputbox");
 
+// Calculates the desired results based on formatted numbers
 function calculateResult() {
-  ("calulating result");
   let tipPercentFormatted = formatInputNumber(tipPercent);
   let billNumber = formatInputNumber(billInputbox.value);
   let peopleNumber = formatInputNumber(peopleInputbox.value);
@@ -210,26 +203,41 @@ function calculateResult() {
     (billNumber * (tipPercentFormatted / 100)) /
     peopleNumber
   ).toFixed(2);
-  (tipAmountResult);
+  tipAmountResult;
   let totalResult = (
     (billNumber + billNumber * (tipPercentFormatted / 100)) /
     peopleNumber
   ).toFixed(2);
-  (totalResult);
+  totalResult;
   return [tipAmountResult, totalResult];
 }
 
 const tipResultElement = document.getElementById("tip-variable-number");
 const totalResultElement = document.getElementById("total-variable-number");
 
+// Calls both calculation function and animation function
 function updateResultinDOM() {
-animateValue(calculateResult()[0])
-  totalResultElement.innerText = calculateResult()[1];
+  animateValue(tipResultElement, calculateResult()[0]);
+  animateValue(totalResultElement, calculateResult()[1]);
+}
+
+// Animates the counter going up after calculating the results
+async function animateValue(DOMElement, targetValue) {
+  const speed = 200;
+  let value = 0;
+  const increment = targetValue / speed;
+  while (value < targetValue) {
+    value += increment;
+    DOMElement.innerText = value.toFixed(2);
+    await new Promise((resolve) => setTimeout(resolve, 1));
+  }
+  DOMElement.innerText = targetValue;
 }
 
 const resetButton = document.getElementById("reset-button");
 const customTip = document.getElementById("custom-inputbox");
 
+// Resets all values and DOM elements to start position
 function reset() {
   resetButton.classList.add("calculated");
   resetButton.classList.remove("reset-button");
@@ -247,18 +255,4 @@ function reset() {
     resetButton.classList.remove("calculated");
     resetButton.classList.add("reset-button");
   });
-}
-
-
-async function animateValue(targetValue) {
-    let value = 0;
-
-    let i = 1;
-    while ((targetValue / i) > 10) {
-        value = Math.random() * targetValue * i;
-        tipResultElement.innerText = value.toFixed(2);
-        tipResultElement.innerText = targetValue.fixed(2);
-        i *= 10;
-        await new Promise(resolve => setTimeout(resolve, 10000000000000));
-    }
 }

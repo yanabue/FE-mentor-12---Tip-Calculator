@@ -273,21 +273,18 @@ button.calculated {
 
 @media (max-width: 650px) {
   .dashboard {
-    flex-direction: column;
   }
 
-  .input-panel,
-  .result-panel {
-    width: 100%;
-  }
+ 
 }
 
-@media (max-width: 450px) {
+@media (max-width: 650px) {
   body {
     justify-content: flex-start;
   }
 
   .dashboard {
+    flex-direction: column;
     width: 95%;
     gap: 25px;
     margin-top: 0px;
@@ -327,5 +324,10 @@ button.calculated {
   .input {
     height: 50px;
     margin-top: 10px;
+  }
+
+  .input-panel,
+  .result-panel {
+    width: 100%;
   }
 }
